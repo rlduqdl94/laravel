@@ -1,0 +1,1 @@
+dddd<?php /**PATH C:\inetpub\wwwroot\admin-laravel\resources\views/pages/notice.blade.php ENDPATH**/ ?>

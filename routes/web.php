@@ -29,5 +29,10 @@ Route::get('/logout', [leeleecontroller::class, 'logout']);
 //     return view('regist');
 // });
 
-//페이지 이동sad
+//페이지 이동
 Route::get('/pages/{page}', [leeleecontroller::class, 'page'])->middleware('leeleeauth');
+
+
+
+
+Route::POST('/aa', [leeleecontroller::class, 'test']);  

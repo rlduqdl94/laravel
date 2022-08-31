@@ -39,4 +39,35 @@ class leeleecontroller extends Controller
         $request->session()->forget('mgmt-login');
         return redirect('/login');
     }
+
+
+
+    public function test(Request $request){
+        // return('pages.aa');
+        $sDev_id = $request->input('test');
+        // return view('pages.aa',['aaaa' => $sDev_id,'bbbb' => 'asd'])->render();
+        
+        $date_len = strlen($sDev_id);
+
+        if ($date_len < 9) {
+            $date_val = $sDev_id;
+            $result = collect(DB::select('SELECT * FROM notice'));
+            $result = $result->where('title', 'like', '%테%');
+            $result = DB::table('notice')
+                ->where('date_time', 'like', '%'.$date_val.'%')
+                ->get();
+        }else{
+            $search_data = trim($sDev_id);
+            $date_val = explode("-",$sDev_id);
+            $start_date = $date_val[0].'-'.$date_val[1].'-'.$date_val[2];
+            $start_date = trim($start_date);
+            $end_date = $date_val[3].'-'.$date_val[4].'-'.$date_val[5];
+            $end_date = trim($end_date);
+            $result = collect(DB::select('SELECT * FROM notice'));
+            // $result = $result->where('date_time', '=', '2022-08-31');
+            $result = $result->whereBetween('date_time', [$start_date, $end_date]);
+        }
+        
+        return response()->json([$users]);
+    }
 }
